@@ -1,0 +1,23 @@
+import { useMemo } from "react";
+import { useParams } from "react-router-dom";
+import Menu from "../components/Menu";
+import { getContact } from "../data/items";
+
+export default function Contact() {
+
+    const params = useParams();
+
+    const contact = useMemo(() => getContact(params.contactid), [params.contactid]);
+
+    if(!contact){
+        throw new Error('Contact does not exist')
+    }
+
+    return (
+        <div className="contactContainer">
+            <h1>{contact.name}</h1>
+            <p>{contact.telephone}</p>
+            <p>{contact.favorite? 'Favorite': 'Regular contact'}</p>
+        </div>
+    );
+}
